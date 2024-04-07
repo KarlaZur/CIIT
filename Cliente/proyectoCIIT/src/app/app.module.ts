@@ -13,6 +13,9 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { CommonModule } from '@angular/common';
 import { ReestablecerContrasenaComponent } from './components/reestablecer-contrasena/reestablecer-contrasena.component';
 import { OlvideContrasenaComponent } from './components/olvide-contrasena/olvide-contrasena.component';
+import { PrincipalComponent } from './components/principal/principal.component';
+import { OfertaLaboralComponent } from './components/oferta-laboral/oferta-laboral.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,14 +26,17 @@ import { OlvideContrasenaComponent } from './components/olvide-contrasena/olvide
     FooterComponent,
     UsuarioComponent,
     ReestablecerContrasenaComponent,
-    OlvideContrasenaComponent
+    OlvideContrasenaComponent,
+    PrincipalComponent,
+    OfertaLaboralComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule, 
-    CommonModule
+    CommonModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

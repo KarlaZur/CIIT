@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/models/Usuario';
 import Swal from 'sweetalert2';
 import { RolesService } from 'src/app/services/roles.service';
 import { Rol } from 'src/app/models/Rol';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 declare var $: any;
 @Component({
   selector: 'app-usuario',
@@ -15,9 +16,15 @@ export class UsuarioComponent implements OnInit{
   usuario: Usuario = new Usuario();
   usuarioNuevo: Usuario = new Usuario();
   roles : Rol [] = []
+  pageSize = 4;
+  p = 1;
 
+  imgUsuario: any;
+  fileToUpload: any;
   
-  constructor(private usuarioService: UsuarioService, private rolesService : RolesService) {
+  constructor(private imagenesService: ImagenesService,private usuarioService: UsuarioService, private rolesService : RolesService) {
+    this.imgUsuario = null;
+    this.fileToUpload = null;
   }
   ngOnInit(): void {
       this.usuarioService.list().subscribe((resUsuarios: any) => {
@@ -115,5 +122,35 @@ guardarActualizarUsuario() {
 
   metodoPrueba(){
     console.log(this.usuarios);
+  }
+
+
+  cargandoImagen(archivo:any){
+    console.log(archivo.files);
+    this.imgUsuario=null;
+    this.fileToUpload = archivo.files.item(0);
+    let imgPromise = this.getFileBlob(this.fileToUpload);
+    imgPromise.then(blob => {
+    this.imagenesService.guardarImagen(345, blob).subscribe(
+    (res: any) =>
+    {
+    this.imgUsuario= blob;
+    },
+    err => console.error(err));
+    })
+  }
+
+  getFileBlob(file:any) {
+    var reader = new FileReader();
+    return new Promise(function (resolve, reject) { //Espera a que se cargue la img
+      reader.onload = (function (thefile) {
+        return function (e) {
+          //resolve(e.target.result);
+        };
+
+      })(file);
+      reader.readAsDataURL(file);
+    });
+
   }
 }

@@ -17,7 +17,11 @@
 
 
   <table class="default" *ngIf="empresas != undefined">
-    <tr *ngFor="let empresa of empresas">
+    <tr *ngFor="let empresa of empresas |
+    paginate: {
+    itemsPerPage: pageSize,
+    currentPage: p
+    };let i=index">
     <td>{{empresa.nombre_empresa}}</td>
     <td>{{empresa.direccion}}</td>
     <td>{{empresa.fecha}}</td>
@@ -27,6 +31,11 @@
         <i class="material-icons">delete_forever</i></a></td>
       </tr>
   </table>
+  <div class="row center-align">
+    <pagination-controls class="my-pagination" (pageChange)="p = ($event)"
+    previousLabel="Anterior" nextLabel="Siguiente">
+    </pagination-controls>
+    </div>
 </div>
 
 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15205.02195350417!2d-97.5651446!3d17.6853869!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c611b45661c56b%3A0xef3a0af052e11416!2sBalneario%20Atonaltzin!5e0!3m2!1ses-419!2smx!4v1706283514192!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

@@ -22,7 +22,7 @@ export class LoginComponent {
       {
         localStorage.setItem('correo', resusuario.correo);
         localStorage.setItem('id_Rol', resusuario.id_Rol);
-        this.router.navigateByUrl('/home/empresa');
+        this.router.navigateByUrl('/principal');
       }else{
         console.log("Error, usuario o contrasena no valida");
       }

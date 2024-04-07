@@ -1,7 +1,20 @@
+import {Request,Response} from 'express';
+class CorreoController
+{
+
+}
+
+export const usuariosController = new CorreoController();
+
+
+
+
+/////////////////////////////////////////
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 dotenv.config();
+
 var email = require("emailjs/email");
-console.log("Hi from emailAccess");
 
 function enviarCorreo(body: any) { 
     var server = email.server.connect( {
@@ -13,13 +26,19 @@ function enviarCorreo(body: any) {
         }
     });
 
+    //Tokenizamos el correo para poder ponerlo en la liga
+    var correo = body.Email;
+    const token : string = jwt.sign(correo, process.env.TOKEN_SECRET || 'prueba');
+    console.log(token);
+
+
     var message = {
         from: "webproyecto03@gmail.com",
         to: "<" + body.Email + ">",
         bbc: "",
         subject: "Testing!",
         attachment: [
-            {data: '<a href="https://www.google.com">Click aqui<a/>', alternative: true}
+            {data: `<a href="http://localhost:4200/reestablecerContrasena/${token}">Click Aquí<a/>`, alternative: true }
         ]
     };
 
@@ -31,5 +50,6 @@ function enviarCorreo(body: any) {
         }
     });
 }
+
 
 module.exports = enviarCorreo;

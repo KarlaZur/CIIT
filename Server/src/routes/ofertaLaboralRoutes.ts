@@ -10,9 +10,11 @@ this.config();
 config() : void
 {
 
-    this.router.get('/mostrarTodosOfertasLaborales/',(req,res) => res.send('probando ofertas'));
+    this.router.get('/mostrarTodosOfertasLaborales/',ofertaLaboralController.mostrar_todos_puestos);
     this.router.get('/obtenerOferta/:id',ofertaLaboralController.listOne);
     this.router.post('/createOferta/',ofertaLaboralController.createOferta);
+    this.router.put('/actualizarOferta/:id',ofertaLaboralController.actualizarOferta);
+    this.router.delete('/eliminarOferta/:id',ofertaLaboralController.eliminarOferta);
 }
 }
 const ofertaLaboralRoutes= new OfertaLaboralRoutes();

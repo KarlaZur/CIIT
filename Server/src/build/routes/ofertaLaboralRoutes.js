@@ -8,9 +8,11 @@ class OfertaLaboralRoutes {
         this.config();
     }
     config() {
-        this.router.get('/mostrarTodosOfertasLaborales/', (req, res) => res.send('probando ofertas'));
+        this.router.get('/mostrarTodosOfertasLaborales/', ofertaLaboralController_1.ofertaLaboralController.mostrar_todos_puestos);
         this.router.get('/obtenerOferta/:id', ofertaLaboralController_1.ofertaLaboralController.listOne);
         this.router.post('/createOferta/', ofertaLaboralController_1.ofertaLaboralController.createOferta);
+        this.router.put('/actualizarOferta/:id', ofertaLaboralController_1.ofertaLaboralController.actualizarOferta);
+        this.router.delete('/eliminarOferta/:id', ofertaLaboralController_1.ofertaLaboralController.eliminarOferta);
     }
 }
 const ofertaLaboralRoutes = new OfertaLaboralRoutes();

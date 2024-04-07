@@ -13,6 +13,8 @@ export class EmpresaComponent implements OnInit {
     empresas: Empresa[] = [];
     empresa: Empresa = new Empresa();
     empresaNueva: Empresa = new Empresa();
+    pageSize = 2;
+    p = 1;
 
     constructor(private empresaService: EmpresaService) {
     }

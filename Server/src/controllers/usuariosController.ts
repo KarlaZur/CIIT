@@ -1,6 +1,7 @@
 import {Request,Response} from 'express';
-import pool from '../database'; //acceso a la base de datos
 import bcrypt from 'bcryptjs';
+import pool from '../database'; //acceso a la base de datos
+
 class UsuariosController
 {
 public async mostrar_todos_usuarios(req: Request, res: Response ): Promise<void>{
@@ -20,9 +21,16 @@ res.status(404).json({'mensaje': 'Usuario no encontrado'});
 //aqui va el crud
 public async createUsuario(req: Request, res: Response): Promise<void> {
     //console.log(req.body)
-    const resp = await pool.query("INSERT INTO usuarios set ?",[req.body]);
-    res.json(resp);
-    //res.json(null);
+    const salt = await bcrypt.genSalt(10);
+    req.body.contrasena = await bcrypt.hash(req.body.contrasena, salt);
+    //console.log(req.body.contrasena);
+    //console.log(await bcrypt.hash(req.body.password, salt))
+    try {
+        const resp = await pool.query("INSERT INTO usuarios set ?", [req.body]);
+        res.json(1);
+    } catch (error) {
+        console.log(error);
+    }       
 }
 
 public async actualizarUsuario(req: Request, res: Response): Promise<void> {
@@ -52,17 +60,37 @@ public async listarUsuariosRol(req: Request, res: Response): Promise<void> {
 }
 
 public async ValidarUsuario(req: Request, res: Response): Promise<void> {
-    //console.log(req.body)
     const parametros = req.body;
-    var consulta = `SELECT id_Rol, correo FROM usuarios WHERE correo = '${parametros.correo}' AND contrasena = '${parametros.contrasena}'`;
-    const resp = await pool.query(consulta);
-    if(resp.length>0)
-        res.json(resp);
-    else
-        res.json({"id_Rol":"-1"});
-    //res.json(null);
+    const consulta = "SELECT * FROM usuarios WHERE correo = ?";
+    //console.log(parametros);
     //console.log(consulta);
-}    
+    try {
+        const respuesta = await pool.query(consulta, [parametros.correo]);
+        if (respuesta.length > 0) {
+            const usuario = respuesta[0];
+            bcrypt.compare(parametros.contrasena, usuario.contrasena, (err, resEncriptar) => {
+                if (resEncriptar) {
+                    const prueba = {
+                        id_: usuario.id,
+                        nombre: usuario.nombre,
+                        correo: usuario.correo,
+                        id_Rol: usuario.id_Rol
+                    };
+                    res.json(prueba);
+                } else {
+                    console.log("Contraseña incorrecta");
+                    res.json({ id_Rol: "-1" });
+                }
+            });
+        } else {
+            console.log("Usuario no encontrado");
+            res.json({ id_Rol: "-1" });
+        }
+    } catch (error) {
+        console.error("Error al validar usuario:", error);
+        res.status(500).json({ mensaje: 'Error en el servidor' });
+    }
+}  
 
 public async obtenerUsuarioCorreo(req: Request, res: Response): Promise<void> {
     const { correo } = req.params;
@@ -75,15 +103,23 @@ public async obtenerUsuarioCorreo(req: Request, res: Response): Promise<void> {
 
 
 public async actualizarContrasena(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
+    const {token} = req.params;
+    //Destokenizamos
+    const decoded = decodeJWT(token);
+    console.log(decoded);
 
     const salt = await bcrypt.genSalt(10);
-    req.body.Contrasena = await bcrypt.hash(req.body.Contrasena, salt);
-
-    const resp = await pool.query("UPDATE usuarios set ? WHERE id = ?", [req.body, id]);
+    req.body.contrasena = await bcrypt.hash(req.body.contrasena, salt)
+    const resp = await pool.query("UPDATE usuarios set ? WHERE correo = ?", [req.body, decoded]);
     res.json(resp);
 }
 
+
+}
+
+
+function decodeJWT(token:any) {
+    return (Buffer.from(token.split('.')[1], 'base64').toString());
 }
 
 export const usuariosController = new UsuariosController();

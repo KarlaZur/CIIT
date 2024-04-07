@@ -169,6 +169,43 @@
                 }
             }
         },
+        "/api/usuarios/reestablecreestablecerContrasena/{token}": {
+            "put": {
+                "summary": "Actualizar  del usla contraseña de un usuario del ciit",
+                "description": "<p>Servicio que permite editar la contraseña del usuario de ciit, dado el correo tokenizado del usuario </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "required": true,
+                        "description": "Correo tokenizado del usuario",
+                        "type": "string",
+                        "default": "eyJhbGciOiJIUzI1NiJ9.eGltZW5hMjYwNzAzQGdtYWlsLmNvbQ.V8rTdiJR2JZYZn2O1P4PG8jevAWqb-cWwfMYPEnakYc"
+                    },
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "Contraseña nueva del usuario",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaContrasena"
+                        }
+                    }
+                ],
+                "tags": ["Usuarios"],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
         "/api/usuarios/eliminarUsuario/{id}": {
             "delete": {
                 "tags": ["Usuarios"],
@@ -603,6 +640,15 @@
                 "contrasena": {
                     "type": "string",
                     "description": "Contrasena del usuario"
+                }
+            }
+        },
+        "NuevaContrasena": {
+            "type": "object",
+            "properties": {
+                "contrasena": {
+                    "type": "string",
+                    "description": "Contrasena nueva del usuario"
                 }
             }
         },

@@ -4,6 +4,7 @@ class OfertaLaboralController
 {
     public async mostrar_todos_puestos(req: Request, res: Response ): Promise<void>{
         const respuesta = await pool.query('SELECT * FROM ofertalaboral');
+        console.log(respuesta)
         res.json( respuesta );
     }
     public async listOne(req: Request, res: Response): Promise <void>{
@@ -22,6 +23,21 @@ class OfertaLaboralController
         const idOferta = resp.insertId;
         const consulta = {"idEmpresa":idEmpresa, "idOferta":idOferta};
         resp = await pool.query(`INSERT INTO oferta_empresa set ?`, [consulta]);
+        res.json(resp);
+    }
+
+    public async actualizarOferta(req: Request, res: Response): Promise<void> {
+        const { id } = req.params;
+        //console.log(req.params);
+        console.log(id);
+        const resp = await pool.query("UPDATE ofertalaboral set ? WHERE idOferta = ?", [req.body, id]);
+        res.json(resp);
+        //res.json(null);
+    }
+
+    public async eliminarOferta(req: Request, res: Response): Promise<void> {
+        const { id } = req.params;
+        const resp = await pool.query(`DELETE FROM ofertalaboral WHERE idOferta = ${id}`);
         res.json(resp);
     }
 

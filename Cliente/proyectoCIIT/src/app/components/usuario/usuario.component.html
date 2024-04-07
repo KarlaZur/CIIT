@@ -2,7 +2,11 @@
 
 
 <table class="default" *ngIf="usuarios != undefined">
-  <tr *ngFor="let usuario of usuarios">
+  <tr *ngFor="let usuario of usuarios |
+  paginate: {
+  itemsPerPage: pageSize,
+  currentPage: p
+  };let i=index">
     <td>{{usuario.nombre}}</td>
     <td>{{usuario.correo}}</td>
     <td><a href="javascript: void(0);" class="space" (click)="actualizarUsuario(usuario.id)">
@@ -11,6 +15,13 @@
         <i class="material-icons">delete_forever</i></a></td>
   </tr>
 </table>
+<div class="row center-align">
+  <pagination-controls class="my-pagination" (pageChange)="p = ($event)"
+  previousLabel="Anterior" nextLabel="Siguiente">
+  </pagination-controls>
+  </div>
+
+
 <div id="modalModificarUsuario" class="modal">
   <div class="modal-content">
     <div class="row" style="margin-bottom: 0px !important;">
@@ -37,8 +48,9 @@
             </select>
         </div>
         <div class="input-field col s6">
-          <label class="active">Password </label>
-          <input [(ngModel)]="usuario.contrasena" type="text" class="validate">
+          <label>Imagen de usuario</label>
+          <br><br>
+          <input type="file" (change)="cargandoImagen($event.target)" multiple>
         </div>
       </div>
       <div class="row">
