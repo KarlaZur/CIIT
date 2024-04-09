@@ -28,5 +28,14 @@ class EmpresasController
         res.json(resp);
     }
 
+    public async listOne(req: Request, res: Response): Promise <void>{
+        const {id} = req.params;
+        const respuesta = await pool.query('SELECT * FROM empresa WHERE id_empresa = ?', [id]);
+        if(respuesta.length>0){
+            res.json(respuesta[0]);
+            return ;
+        }
+    }
+
 }
 export const empresasController = new EmpresasController();

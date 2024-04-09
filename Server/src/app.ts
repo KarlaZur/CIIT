@@ -5,6 +5,7 @@ import jwm from 'jsonwebtoken';
 import dontev from 'dotenv';
 import pool from './database';
 const correoAcceso = require('./correoAcceso');
+import fs from 'fs';
 
 class Server {
     public app: Application;
@@ -17,15 +18,32 @@ class Server {
     }
 
     config(): void {
-        this.app.use(express.urlencoded({limit: '50mb', parameterLimit: 100000, extended: false}));
-        this.app.use(express.json({limit: '50mb'}));
+        this.app.use(express.urlencoded({ limit: '50mb', parameterLimit: 100000, extended: false }));
+        this.app.use(express.json({ limit: '50mb' }));
         this.app.set('port', process.env.PORT || 3001);
         this.app.use(morgan('dev'));
         this.app.use(cors());
-        this.app.use(express.urlencoded({extended: false}));
+        this.app.use(express.urlencoded({ extended: false }));
     }
 
     routes(): void {
+
+        this.app.post('/uploadImagen', (req, res) => {
+            console.log("upload image")
+            const file = req.body.src;
+            const name = req.body.tipo;
+            const id = req.body.id;
+            // console.log(__dirname)
+            const binaryData =
+                Buffer.from(file.replace(/^data:image\/[a-z]+;base64,/, ""),
+                    'base64').toString('binary');
+            fs.writeFile(`${__dirname}/imagenes/` + name + '/' + id + '.jpg', binaryData,
+                "binary", (err) => {
+                    console.log(err);
+                });
+            res.json({ fileName: id + '.jpg' });
+        });
+
         this.app.post('/enviarCorreoRecuperarContrasena', (req, res) => {
             console.log(req.body);
             correoAcceso(req.body);
@@ -47,12 +65,12 @@ class Server {
             }
         });
 
-        
+
     }
 
     queryUser = (decode: any) => {
         return new Promise((resolve, reject) => {
-            let query = 'SELECT * FROM users WHERE email ="'+decode+'"';
+            let query = 'SELECT * FROM users WHERE email ="' + decode + '"';
             pool.query(query, (err: any, result: any) => {
                 if (err) {
                     return reject(err);
@@ -67,6 +85,8 @@ class Server {
             console.log('Server on port', this.app.get('port'));
         });
     }
+
+
 }
 
 const server = new Server();

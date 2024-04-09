@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 16-03-2024 a las 17:47:35
--- Versión del servidor: 8.0.31
--- Versión de PHP: 8.0.26
+-- Tiempo de generación: 07-04-2024 a las 20:07:47
+-- Versión del servidor: 8.2.0
+-- Versión de PHP: 8.2.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,13 +30,13 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `empresa`;
 CREATE TABLE IF NOT EXISTS `empresa` (
   `id_empresa` bigint NOT NULL AUTO_INCREMENT,
-  `nombre_empresa` text NOT NULL,
-  `direccion` text NOT NULL,
-  `rfc` text NOT NULL,
-  `telefono` text NOT NULL,
-  `responsable` text NOT NULL,
+  `nombre_empresa` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `direccion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `rfc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `telefono` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `responsable` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id_empresa`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `empresa`
@@ -57,21 +57,21 @@ DROP TABLE IF EXISTS `ofertalaboral`;
 CREATE TABLE IF NOT EXISTS `ofertalaboral` (
   `idOferta` bigint NOT NULL AUTO_INCREMENT,
   `salario` float NOT NULL,
-  `puesto` text NOT NULL,
+  `puesto` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_empresa` bigint NOT NULL,
-  `descripcion` text NOT NULL,
-  `horario` text NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `horario` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`idOferta`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `ofertalaboral`
 --
 
 INSERT INTO `ofertalaboral` (`idOferta`, `salario`, `puesto`, `id_empresa`, `descripcion`, `horario`) VALUES
-(1, 2000, 'jefe', 1, 'mucho money', '7 am- 6pm'),
-(2, 3000, 'ayudante', 1, 'servicio de limpieza', '6 am- 5pm'),
-(3, 4000, 'administrador', 3, 'administrar inventario', '7 am- 6pm'),
+(1, 2000, 'Jefe', 1, 'mucho money', '7 am- 6pm'),
+(2, 3000, 'Ayudante', 1, 'servicio de limpieza', '6 am- 5pm'),
+(3, 4000, 'Administrador', 3, 'administrar inventario', '7 am- 6pm'),
 (4, 15000, 'Secretaria', 2, 'Puesto fijo', '9 am - 5 pm');
 
 -- --------------------------------------------------------
@@ -84,7 +84,7 @@ DROP TABLE IF EXISTS `oferta_empresa`;
 CREATE TABLE IF NOT EXISTS `oferta_empresa` (
   `idEmpresa` bigint NOT NULL,
   `idOferta` bigint NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `oferta_empresa`
@@ -105,16 +105,18 @@ INSERT INTO `oferta_empresa` (`idEmpresa`, `idOferta`) VALUES
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id_rol` bigint NOT NULL AUTO_INCREMENT,
-  `nombre_rol` text NOT NULL,
+  `nombre_rol` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id_rol`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `roles`
 --
 
 INSERT INTO `roles` (`id_rol`, `nombre_rol`) VALUES
-(1, 'Administrador');
+(1, 'Administrador'),
+(3, 'Usuario'),
+(8, 'Jefe de Operaciones');
 
 -- --------------------------------------------------------
 
@@ -125,21 +127,32 @@ INSERT INTO `roles` (`id_rol`, `nombre_rol`) VALUES
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `nombre` text NOT NULL,
-  `correo` text NOT NULL,
+  `nombre` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `correo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_Rol` bigint NOT NULL,
-  `contrasena` text NOT NULL,
+  `contrasena` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `fotito` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `id_Rol`, `contrasena`) VALUES
-(1, 'Juan Perez', 'juan@gmail.com', 1, '123*'),
-(2, 'Alejandro Rosas', 'Ale@gmail.com', 3, '456#'),
-(4, 'Angel Cruz', 'Angel@gmail.com', 4, '789*');
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `id_Rol`, `contrasena`, `fotito`) VALUES
+(1, 'Juan Perez', 'juan@gmail.com', 1, '$2b$10$BlxJLZCbhDOlw5y9Bflm8.8GtMuXSl1yOyJ/lNUtcSSwdpDQ1eGWa', 0),
+(2, 'Alejandro Rosas', 'Ale@gmail.com', 3, '$2b$10$2Iyvv44GZN/UaMCPQz5B5OMXFLkgegrGH8XesCfjus6A6HH6z.MZm', 0),
+(4, 'Angel Cruz', 'Angel@gmail.com', 1, '$2b$10$FyruYKi5bnAkYa/dmGsouugDFCviSPeAxKCqPabHdkZSLxAvoCUqO', 0),
+(11, 'Luis', 'Luis@gmail.com', 1, '$2b$10$3GH8WrHg71pO4b5jvktg4ucpBSQGGq/WGiivZOVYITOpgnJsfiQrC', 0),
+(12, 'Pablo', 'Pablo@gmail.com', 1, '$2a$10$B4EnzCk0MNFZ5tm5.rlnU.EpGWLet7HxtGgPtm7pvDZMBgJ3LLRWW', 0),
+(13, 'Mario', 'Mario@gmail.com', 1, '$2a$10$gtE/..4T83zwX5svIOlw7u9XwurDFng8DKr.14N45He5vwpeMcTeG', 0),
+(17, 'Daniel', 'Daniel@gmail.com', 1, '$2a$10$7AuQtBQ/M7Wy.Va3ajmZJ.EELVMZdMJv3rFlTvxExTE4l2WBG3h4K', 0),
+(16, 'Ricardo', 'Ricardo@gmail.com', 1, '$2a$10$TTPHQAOI/A8ru4nP34OD5uMAyj3JtSf8fX5eDrRsp8nRlC1nQx25y', 0),
+(18, 'Estefania', 'Estefania@gmail.com', 1, '$2a$10$SQ9WOC2EsBkgVkYKLfEoU.NunYk0F7EJ1zVDXpXxm3gRWT6yWwxlK', 0),
+(19, 'Monserrat', 'Monserrat@gmail.com', 1, '$2a$10$c14Y15UlXmjrdSpB9oRD4ew.iem36EZEBYHsGUJa25oTzGNqT2BDi', 0),
+(20, 'Cecilia', 'Cecilia@gmail.com', 0, '$2a$10$qMedl5nkRmsCbaraZBp4oOSqBkl5mbpOyun4f/Ou68a0hM17ZgdfS', 0),
+(21, 'Fernanda', 'Fernanda@gmail.com', 0, '$2a$10$pu4SyN2Js4oYfbpJxO/Wt.7tNkpxnIhBv2f15h08f4qhthGIu3NjW', 0),
+(22, 'pruebas', 'pruebas602a@gmail.com', 1, '$2a$10$Rd2/J1obKW54G4VYDO4pBe1J6iDd8pRyZOxdnDfUSGXeU7koYJH6m', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

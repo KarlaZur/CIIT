@@ -19,7 +19,6 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const database_1 = __importDefault(require("./database"));
 const correoAcceso = require('./correoAcceso');
-const fs_1 = __importDefault(require("fs"));
 class Server {
     constructor() {
         this.queryUser = (decode) => {
@@ -48,16 +47,17 @@ class Server {
     }
     routes() {
         this.app.post('/uploadImagen', (req, res) => {
-            console.log("upload image");
             const file = req.body.src;
             const name = req.body.tipo;
-            const id = req.body.id;
-            // console.log(__dirname)
-            const binaryData = Buffer.from(file.replace(/^data:image\/[a-z]+;base64,/, ""), 'base64').toString('binary');
-            fs_1.default.writeFile(`${__dirname}/imagenes/` + name + '/' + id + '.jpg', binaryData, "binary", (err) => {
-                console.log(err);
-            });
-            res.json({ fileName: id + '.jpg' });
+            console.log(file, name);
+            // const binaryData =
+            //     Buffer.from(file.replace(/^data:image\/[a-z]+;base64,/, ""),
+            //         'base64').toString('binary');
+            // fs.writeFile(`${__dirname}/img/` + name + '.jpg', binaryData,
+            //     "binary", (err) => {
+            //         console.log(err);
+            //     });
+            res.json({ fileName: name + '.jpg' });
         });
         this.app.post('/enviarCorreoRecuperarContrasena', (req, res) => {
             console.log(req.body);
