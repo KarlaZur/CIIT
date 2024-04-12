@@ -15,6 +15,7 @@ class Server {
         this.app = express();
         this.config();
         this.routes();
+        this.app.use(express.static(__dirname + "/img"));
     }
 
     config(): void {
@@ -37,7 +38,9 @@ class Server {
             const binaryData =
                 Buffer.from(file.replace(/^data:image\/[a-z]+;base64,/, ""),
                     'base64').toString('binary');
-            fs.writeFile(`${__dirname}/imagenes/` + name + '/' + id + '.jpg', binaryData,
+                    console.log(__dirname + '/img/' + id + '.jpg');
+                    
+            fs.writeFile(`${__dirname}/img/` + id + '.jpg', binaryData,
                 "binary", (err) => {
                     console.log(err);
                 });

@@ -16,6 +16,7 @@ class Server {
         this.config();
         this.routes();
         this.app.use('/documentacion', swagger_ui_express.serve, swagger_ui_express.setup(swaggerDocument));
+
     }
 
     config(): void {
