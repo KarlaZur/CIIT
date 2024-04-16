@@ -3,14 +3,15 @@
 
 
 <div class="container">
-  
+  <h1>{{"Lista de roles" | translate}}</h1>
   <table class="default" *ngIf="roles != undefined">
     <tr *ngFor="let rol of roles |
     paginate: {
     itemsPerPage: pageSize,
     currentPage: p
     };let i=index">
-    <td>{{rol.nombre_rol}}</td>
+    <td *ngIf="idioma==2">{{rol.nombre_rol}}{{idioma}}</td>
+    <td *ngIf="idioma==1">{{rol.name_rol}}{{idioma}}</td>
     <td><a href="javascript: void(0);" class="space" (click)="actualizarRol(rol.id_rol)">
       <i class="material-icons">edit</i></a></td>
       <td><a href="javascript: void(0);" class="material-icons" (click)="eliminarRol(rol.id_rol)">
@@ -64,6 +65,12 @@
         <div class="input-field col s12">
           <label class="active" for="nombre_rol">Nombre </label>
           <input id="nombre_rol" [(ngModel)]="rolNuevo.nombre_rol" type="text" class="validate">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <label class="active" for="name_rol">Name Rol </label>
+          <input id="name_rol" [(ngModel)]="rolNuevo.name_rol" type="text" class="validate">
         </div>
       </div>
       <div class="row">

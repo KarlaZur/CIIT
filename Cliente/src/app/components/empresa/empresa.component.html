@@ -1,16 +1,16 @@
 <a href="javascript: void(0);"><i class="material-icons" (click)="crearEmpresa()">add</i></a>
 
 
-
+<h1>{{"Lista de empresas"| translate}}</h1>
 <div class="container">
   <div class="input-field col s6">
-    <label class="active">Fecha Inicio </label>
+    <label class="active">{{"Fecha Inicio"|translate}} </label>
     <input [(ngModel)]="empresa.fecha" type="text" id="fechaEmpresa" #fechaD
     (change)="actualizarFecha(fechaD.value)" class="datepicker">
   </div>
 
   <div class="input-field col s6">
-    <label class="active">Fecha Fin </label>
+    <label class="active">{{"Fecha Fin"|translate}} </label>
     <input [(ngModel)]="empresa.fecha" type="text" id="fechaEmpresa" #fechaD
     (change)="actualizarFecha(fechaD.value)" class="datepicker">
   </div>

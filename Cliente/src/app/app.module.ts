@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { EmpresaComponent } from './components/empresa/empresa.component';
-import { HttpClientModule} from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -17,6 +17,13 @@ import { PrincipalComponent } from './components/principal/principal.component';
 import { OfertaLaboralComponent } from './components/oferta-laboral/oferta-laboral.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RolesComponent } from './components/roles/roles.component';
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,11 +43,18 @@ import { RolesComponent } from './components/roles/roles.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule, 
+    FormsModule,
     CommonModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
-  providers: [],
+  providers:[CambioIdiomaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

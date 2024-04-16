@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesService } from 'src/app/services/roles.service';
 import { Rol } from 'src/app/models/Rol';
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 import Swal from 'sweetalert2';
 declare var $: any;
 
@@ -15,13 +16,26 @@ export class RolesComponent implements OnInit {
   rolNuevo: Rol = new Rol();
   pageSize = 4;
   p = 1;
+  idioma : any = 2;
 
-  constructor(private rolesService: RolesService) { }
+  constructor(private rolesService: RolesService, private cambioIdiomaService: CambioIdiomaService) { 
+    this.idioma=2;
+    console.log("entrando a constructor de roles")
+  }
 
   ngOnInit(): void {
+    console.log("entrando a oninit de roles")
     this.rolesService.list().subscribe((resRoles: any) => {
       this.roles = resRoles;
     }, err => console.error(err));
+
+    this.cambioIdiomaService.currentMsg$.subscribe(
+      (msg) =>
+      {
+      this.idioma=msg;
+      console.log("idioma actual:",this.idioma," aaaa");
+      }
+    );
   }
 
   actualizarRol(id_rol: any) {

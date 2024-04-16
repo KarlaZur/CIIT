@@ -37,7 +37,7 @@ class Server {
         this.app = (0, express_1.default)();
         this.config();
         this.routes();
-        this.app.use(express_1.default.static(__dirname + "/img"));
+        this.app.use(express_1.default.static(__dirname + "/imagenes"));
     }
     config() {
         this.app.use(express_1.default.urlencoded({ limit: '50mb', parameterLimit: 100000, extended: false }));
@@ -55,8 +55,7 @@ class Server {
             const id = req.body.id;
             // console.log(__dirname)
             const binaryData = Buffer.from(file.replace(/^data:image\/[a-z]+;base64,/, ""), 'base64').toString('binary');
-            console.log(__dirname + '/img/' + id + '.jpg');
-            fs_1.default.writeFile(`${__dirname}/img/` + id + '.jpg', binaryData, "binary", (err) => {
+            fs_1.default.writeFile(`${__dirname}/imagenes/` + name + '/' + id + '.jpg', binaryData, "binary", (err) => {
                 console.log(err);
             });
             res.json({ fileName: id + '.jpg' });

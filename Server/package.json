@@ -4,8 +4,10 @@
   "description": "Desarrollo de un sitio web del ciit",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon build/index.js",
-    "correo": "nodemon build/app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/build/index.js",
+    "correo": "nodemon src/build/app.js",
+    "imagen": "nodemon src/build/imagen.js"
   },
   "keywords": [],
   "author": "",

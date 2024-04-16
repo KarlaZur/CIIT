@@ -8,15 +8,14 @@ import rolesRoutes from './routes/rolesRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 import { validarToken } from './middleware/auth'
-import swaggerDocument from './swagger.json';
+//import swaggerDocument from './swagger.json';
 class Server {
     public app: Application;
     constructor() {
         this.app = express();
         this.config();
         this.routes();
-        this.app.use('/documentacion', swagger_ui_express.serve, swagger_ui_express.setup(swaggerDocument));
-
+        //this.app.use('/documentacion', swagger_ui_express.serve, swagger_ui_express.setup(swaggerDocument));
     }
 
     config(): void {
