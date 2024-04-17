@@ -1,21 +1,9 @@
-<a href="javascript: void(0);"><i class="material-icons" (click)="crearEmpresa()">add</i></a>
-
-
-
+<h1>{{"Lista de empresas"| translate}}</h1><br><br>
 <div class="container">
-  <div class="input-field col s6">
-    <label class="active">Fecha Inicio </label>
-    <input [(ngModel)]="empresa.fecha" type="text" id="fechaEmpresa" #fechaD
-    (change)="actualizarFecha(fechaD.value)" class="datepicker">
-  </div>
-
-  <div class="input-field col s6">
-    <label class="active">Fecha Fin </label>
-    <input [(ngModel)]="empresa.fecha" type="text" id="fechaEmpresa" #fechaD
-    (change)="actualizarFecha(fechaD.value)" class="datepicker">
-  </div>
-
-
+  
+  <a href="javascript: void(0);">
+  <i class="material-icons" (click)="crearEmpresa()">add</i>
+</a> 
   <table class="default" *ngIf="empresas != undefined">
     <tr *ngFor="let empresa of empresas |
     paginate: {
@@ -33,36 +21,38 @@
   </table>
   <div class="row center-align">
     <pagination-controls class="my-pagination" (pageChange)="p = ($event)"
-    previousLabel="Anterior" nextLabel="Siguiente">
+    previousLabel="{{'Anterior'|translate}}" nextLabel="{{'Siguiente'|translate}}">
     </pagination-controls>
     </div>
 </div>
 
+
+<br><br><br><br>
 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15205.02195350417!2d-97.5651446!3d17.6853869!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c611b45661c56b%3A0xef3a0af052e11416!2sBalneario%20Atonaltzin!5e0!3m2!1ses-419!2smx!4v1706283514192!5m2!1ses-419!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     <div id="modalModificarEmpresa" class="modal">
   <div class="modal-content">
     <div class="row" style="margin-bottom: 0px !important;">
       <div class="col s12">
-        <h5 class="center">Actualizar Empresa</h5>
+        <h5 class="center">{{"Actualizar empresa"| translate}}</h5>
       </div>
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
         <div class="input-field col s12">
-          <label class="active" for="nombre_empresa">Nombre </label>
+          <label class="active" for="nombre_empresa"> {{"Nombre"| translate}} </label>
           <input id="nombre_empresa" [(ngModel)]="empresa.nombre_empresa" type="text" class="validate">
         </div>
         <div class="input-field col s12">
-          <label class="active">Dirección </label>
+          <label class="active">{{"Dirección"| translate}} </label>
           <input [(ngModel)]="empresa.direccion" type="text" class="validate">
         </div>
         <div class="input-field col s12">
-          <label class="active">Fecha </label>
+          <label class="active">{{"Fecha"| translate}} </label>
           <input [(ngModel)]="empresa.fecha" type="text" id="fechaEmpresa" #fechaD
           (change)="actualizarFecha(fechaD.value)" class="datepicker">
         </div>
         <div class="input-field col s6">
-          <label class="active">Telefono </label>
+          <label class="active">{{"Telefono"| translate}} </label>
           <input [(ngModel)]="empresa.telefono" type="text" class="validate">
         </div>
         <div class="input-field col s6">
@@ -73,11 +63,11 @@
       <div class="row">
         <div class="col s6 center">
           <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-            (click)="guardarActualizarEmpresa()" value="Enviar">
+            (click)="guardarActualizarEmpresa()" value="{{'Enviar'|translate}}">
         </div>
         <div class="col s6 center">
           <a class="modal-action modal-close waves-effect btn-large brown lighten-3
-  black-text">Cancelar</a>
+  black-text">{{'Cancelar'|translate}}</a>
         </div>
       </div>
     </div>
@@ -88,21 +78,22 @@
   <div class="modal-content">
     <div class="row" style="margin-bottom: 0px !important;">
       <div class="col s12">
-        <h5 class="center">Actualizar Empresa</h5>
+        <h5 class="center">{{'Crear compañía'|translate}}</h5>
       </div>
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
         <div class="input-field col s12">
-          <label class="active" for="nombre_empresa">Nombre </label>
+          <label class="active" for="nombre_empresa">{{"Nombre"| translate}} </label>
+          
           <input id="nombre_empresa" [(ngModel)]="empresaNueva.nombre_empresa" type="text" class="validate">
         </div>
         <div class="input-field col s12">
-          <label class="active">Dirección </label>
+          <label class="active">{{"Dirección"| translate}}</label>
           <input [(ngModel)]="empresaNueva.direccion" type="text" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">Telefono </label>
+          <label class="active">{{"Telefono"| translate}}</label>
           <input [(ngModel)]="empresaNueva.telefono" type="text" class="validate">
         </div>
         <div class="input-field col s6">
@@ -113,11 +104,10 @@
       <div class="row">
         <div class="col s6 center">
           <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-            (click)="guardarNuevaEmpresa()" value="Enviar">
+            (click)="guardarNuevaEmpresa()" value="{{'Enviar'|translate}}">
         </div>
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3
-  black-text">Cancelar</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{'Cancelar'|translate}}</a>
         </div>
       </div>
     </div>
