@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from './../../services/usuario.service';
 import { Usuario } from 'src/app/models/Usuario';
@@ -6,7 +7,11 @@ import { RolesService } from 'src/app/services/roles.service';
 import { Rol } from 'src/app/models/Rol';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { environment } from 'src/environments/environment';
+import { ChangeDetectorRef } from '@angular/core';
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
+
 declare var $: any;
+
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
@@ -19,17 +24,27 @@ export class UsuarioComponent implements OnInit {
   roles: Rol[] = []
   pageSize = 4;
   p = 1;
-  liga = environment.API_URI_IMAGES;
-  
+  liga = '';
   imgUsuario: any;
   fileToUpload: any;
+  imagenActualizada = false;
+  imagenUrls: { [id: number]: string } = {};
+  idioma: any = 2;
 
-  constructor(private imagenesService: ImagenesService, private usuarioService: UsuarioService, private rolesService: RolesService) {
+  constructor(private imagenesService: ImagenesService, private usuarioService: UsuarioService, private rolesService: RolesService,  private cambioIdiomaService: CambioIdiomaService) {
     this.imgUsuario = null;
-    console.log(this.liga);
     this.fileToUpload = null;
+    this.liga = environment.API_URI_IMAGES;
+    this.idioma = 2;
+        this.cambioIdiomaService.currentMsg$.subscribe(
+            (msg) => {
+                this.idioma = msg;
+                console.log("idioma actual:", this.idioma, " aaaa");
+            });
   }
+
   ngOnInit(): void {
+ 
     this.usuarioService.list().subscribe((resUsuarios: any) => {
       this.usuarios = resUsuarios;
       this.rolesService.list().subscribe((resRoles: any) => {
@@ -39,6 +54,12 @@ export class UsuarioComponent implements OnInit {
     }, err => console.error(err));
   }
 
+  // Método para actualizar la variable 'liga' cuando se seleccione un usuario
+  seleccionarUsuario(usuario: Usuario) {
+    this.usuario = usuario;
+    //this.liga = environment.API_URI_IMAGES + "/usuarios/" + this.usuario.id + ".jpg";
+  }
+
   crearUsuario() {
     this.usuarioNuevo = new Usuario();
     console.log("Usuario Nuevo")
@@ -46,6 +67,7 @@ export class UsuarioComponent implements OnInit {
     $("#modalCrearUsuario").modal("open");
   }
 
+  // Método para guardar un nuevo usuario
   guardarNuevoUsuario() {
     console.log("GuardandoUsuario")
     this.usuarioService.crearUsuario(this.usuarioNuevo).subscribe((res) => {
@@ -53,11 +75,20 @@ export class UsuarioComponent implements OnInit {
       this.usuarioService.list().subscribe((resUsuarios: any) => {
         this.usuarios = resUsuarios;
       }, err => console.error(err));
+      if(this.idioma == 1){
+        console.log("Eh wey, estás ahí?")
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          text: "User Update"
+        })
+      }else{ 
       Swal.fire({
         position: 'center',
         icon: 'success',
-        text: 'Plan Actualizado'
+        text: 'Usuario Actualizado'
       })
+    }
     }, err => console.error(err));
   }
 
@@ -65,36 +96,59 @@ export class UsuarioComponent implements OnInit {
   actualizarUsuario(id_usuario: any) {
     this.usuarioService.listOne(id_usuario).subscribe((resUsuario: any) => {
       this.usuario = resUsuario;
-      console.log(this.usuario)
+      this.seleccionarUsuario(this.usuario)
       $('#modalModificarUsuario').modal();
       $("#modalModificarUsuario").modal("open");
     }, err => console.error(err));
   }
+
+  mostrarImagen(id_usuario: any) {
+    this.imgUsuario = null;
+    this.fileToUpload = null;
+    this.usuarioService.listOne(id_usuario).subscribe((resUsuario: any) => {
+      this.usuario = resUsuario;
+      console.log("Primer usuario: ", this.usuario.id);
+      $('#Imagen').modal();
+      $("#Imagen").modal("open");
+    }, err => console.error(err));
+  }
+
+
   guardarActualizarUsuario() {
+
     this.usuarioService.actualizarUsuario(this.usuario).subscribe((res) => {
       $('#modalModificarUsuario').modal('close');
       this.usuarioService.list().subscribe((resUsuarios: any) => {
         this.usuarios = resUsuarios;
       }, err => console.error(err));
+      if(this.idioma == 2){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          text: "User Update"
+        })
+      }else{ 
       Swal.fire({
         position: 'center',
         icon: 'success',
-        text: 'Plan Actualizado'
+        text: 'Usuario Actualizado'
       })
+    }
     }, err => console.error(err));
   }
 
   eliminarUsuario(id: any) {
     console.log("Click en eliminar usuario");
     console.log("Identificador del usuario: ", id);
-    Swal.fire({
-      title: "¿Estás seguro bro?",
-      text: "No es posible revertir este!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, quiero eliminarlo!"
+    if(this.idioma ==2){
+      Swal.fire({
+        title: "Are you sure to eliminate this user?",
+        text: "It is not possible to reverse this action!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, I want to eliminate it!"
     }).then((result) => {
       if (result.isConfirmed) {
         this.usuarioService.eliminarUsuario(id).subscribe((resusuario: any) => {
@@ -112,12 +166,47 @@ export class UsuarioComponent implements OnInit {
 
 
         Swal.fire({
-          title: "Eliminado!",
-          text: "Tu archivo ha sido eliminado.",
+          title: "Deleted!",
+          text:  "Your file has been deleted",
           icon: "success"
         });
       }
     });
+    }else{
+      Swal.fire({
+        title: "¿Estás seguro de eliminar este usuario?",
+        text: "¡No es posible revertir esta acción!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, quiero eliminarlo!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.usuarioService.eliminarUsuario(id).subscribe((resusuario: any) => {
+            console.log("resusuario: ", resusuario);
+            this.usuarioService.list().subscribe((resusuario: any) => {
+              this.usuarios = resusuario;
+              //console.log(resusuario);
+              console.log(this.usuarios)
+            },
+              err => console.error(err)
+            );
+          },
+            err => console.error(err)
+          );
+  
+  
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Tu archivo ha sido eliminado.",
+            icon: "success"
+          });
+        }
+      });
+
+    }
+
 
   }
 
@@ -127,20 +216,64 @@ export class UsuarioComponent implements OnInit {
 
 
   cargandoImagen(archivo: any) {
-    // console.log(archivo.files);
+    //this.usuario.fotito = 0;
     this.imgUsuario = null;
+    this.fileToUpload = null;
     this.fileToUpload = archivo.files.item(0);
+    console.log("convirtiendo imagen");
+  }
+
+
+  guardandoImagen() {
+    // this.imgUsuario = null;
+    //this.fileToUpload = null;
     let imgPromise = this.getFileBlob(this.fileToUpload);
     imgPromise.then(blob => {
-      console.log("convirtiendo imagen")
+      console.log(this.usuario.id);
+      //this.usuario.fotito = 2; 
 
+      
       this.imagenesService.guardarImagen(this.usuario.id, "usuarios", blob).subscribe(
         (res: any) => {
           this.imgUsuario = blob;
+          console.log("Usuario id: ", this.usuario.id);
+
+          // Actualizar la URL de la imagen solo para el usuario actual
+
+          this.imagenActualizada = true; // Aquí se marca la imagen como actualizada
+          this.usuarioService.actualizarFotito(this.usuario).subscribe((resusuario: any) => {
+            console.log("fotito: ", resusuario);
+            this.usuario.fotito = 2;
+            if (this.usuario.fotito === 2) {
+              console.log(this.liga);
+              
+              //this.liga= environment.API_URI_IMAGES + '/usuarios/' + this.usuario.id + '.jpg?t=';
+              //console.log("liga de los amigos: ",this.liga);
+              
+            }
+          }, err => console.error(err));
+
         },
-        err => console.error(err));
-    })
+        err => console.error(err)
+      );
+    });
+
+    if(this.idioma==1){
+      Swal.fire({
+        title: "Updated",
+        text: "Your image has been updated",
+        icon: "success"
+      });}else{
+        Swal.fire({
+          title: "Actualizado",
+          text: "Tu imagen se ha actualizado",
+          icon: "success"
+        });
+
+    }
   }
+
+
 
   getFileBlob(file: any) {
     var reader = new FileReader();
@@ -156,4 +289,7 @@ export class UsuarioComponent implements OnInit {
     });
 
   }
+
+
+
 }
