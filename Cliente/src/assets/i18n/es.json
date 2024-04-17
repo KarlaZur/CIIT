@@ -39,6 +39,26 @@
     "¡Este rol depende de alguna otra tabla!, ¡CUIDADO!": "¡Este rol depende de alguna otra tabla!, ¡CUIDADO!",
     "¿Estás seguro de eliminar este usuario?": "¿Estás seguro de eliminar este usuario?",
     "Actualizado": "Actualizado",
-    "Tu imagen se ha actualizado":"Tu imagen se ha actualizado"
+    "Tu imagen se ha actualizado":"Tu imagen se ha actualizado",
+    "Actualizar empresa" :"Actualizar empresa",
+    "Dirección" : "Dirección",
+    "Fecha": "Date",
+    "Telefono" : "Telefono",
+    "Enviar": "Enviar", 
+    "Cancelar":"Cancelar",
+    "Nombre" : "Nombre",
+    "Crear empresa": "Create company",
+    "Imagen": "Image",
+    "Anterior": "Anterior",
+    "Siguiente ": "Siguiente",
+    "Actualizar usuario": "Actualizar usuario",
+    "Crear usuario" :  "Crear usuario",
+    "Contraseña" : "Contraseña" 
+
+
+
+
+
+
     }
     

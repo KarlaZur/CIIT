@@ -20,7 +20,7 @@
   </tr>
 </table>
 <div class="row center-align">
-  <pagination-controls class="my-pagination" (pageChange)="p = ($event)" previousLabel="Anterior" nextLabel="Siguiente">
+  <pagination-controls class="my-pagination" (pageChange)="p = ($event)" previousLabel="{{'Anterior'|translate}}" nextLabel="{{'Siguiente'|translate}}">
   </pagination-controls>
 </div>
 
@@ -29,7 +29,7 @@
   <div class="modal-content">
     <div class="row" style="margin-bottom: 0px !important;">
       <div class="col s12">
-        <h5 class="center">Imagen</h5>
+        <h5 class="center">{{"Imagen"| translate}}</h5>
       </div>
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
@@ -43,7 +43,6 @@
         </div>
       -->
         <div class="input-field col s6">
-          <label>Imagen de usuarioooooo</label>
           <br><br>
           <input type="file" (change)="cargandoImagen($event.target)" multiple>
         </div>
@@ -51,32 +50,33 @@
       <div class="row">
         <div class="col s6 center">
           <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-            (click)="guardandoImagen()" value="Enviar">
+            (click)="guardandoImagen()" value="{{'Enviar'|translate}}">
         </div>
         <div class="col s6 center">
           <a class="modal-action modal-close waves-effect btn-large brown lighten-3
-  black-text">Cancelar</a>
+  black-text">{{'Cancelar'|translate}}</a>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <div id="modalModificarUsuario" class="modal">
   <div class="modal-content">
     <div class="row" style="margin-bottom: 0px !important;">
       <div class="col s12">
-        <h5 class="center">Actualizar Usuario</h5>
+        <h5 class="center">{{'Actualizar usuario'|translate}}</h5>
       </div>
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
         <div class="input-field col s12">
-          <label class="active" for="nombre_usuario">Nombre </label>
+          <label class="active" for="nombre_usuario">"{{'Nombre'|translate}}"</label>
           <input id="nombre_usuario" [(ngModel)]="usuario.nombre" type="text" class="validate">
         </div>
         <div class="input-field col s12">
-          <label class="active">Correo </label>
+          <label class="active">{{'Correo'|translate}}</label>
           <input [(ngModel)]="usuario.correo" type="text" class="validate">
         </div>
         <div class="row col s12">
@@ -92,11 +92,11 @@
       <div class="row">
         <div class="col s6 center">
           <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-            (click)="guardarActualizarUsuario()" value="Enviar">
+            (click)="guardarActualizarUsuario()" value="{{'Enviar'|translate}}">
         </div>
         <div class="col s6 center">
           <a class="modal-action modal-close waves-effect btn-large brown lighten-3
-  black-text">Cancelar</a>
+  black-text">{{'Cancelar'|translate}}</a>
         </div>
       </div>
     </div>
@@ -108,17 +108,17 @@
   <div class="modal-content">
     <div class="row" style="margin-bottom: 0px !important;">
       <div class="col s12">
-        <h5 class="center">Crear Usuario</h5>
+        <h5 class="center">{{'Crear usuario'|translate}}</h5>
       </div>
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
         <div class="input-field col s12">
-          <label class="active" for="nombre_usuario">Nombre </label>
+          <label class="active" for="nombre_usuario">{{'Nombre '|translate}}</label>
           <input id="nombre_usuario" [(ngModel)]="usuarioNuevo.nombre" type="text" class="validate">
         </div>
         <div class="input-field col s12">
-          <label class="active">Correo </label>
+          <label class="active">{{'Correo'|translate}} </label>
           <input [(ngModel)]="usuarioNuevo.correo" type="text" class="validate">
         </div>
         <div class="input-field col s6">
@@ -126,18 +126,18 @@
           <input [(ngModel)]="usuarioNuevo.id_Rol" type="number" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">Password </label>
+          <label class="active">{{'Contraseña'|translate}}</label>
           <input [(ngModel)]="usuarioNuevo.contrasena" type="text" class="validate">
         </div>
       </div>
       <div class="row">
         <div class="col s6 center">
           <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-            (click)="guardarNuevoUsuario()" value="Enviar">
+            (click)="guardarNuevoUsuario()" value="{{'Enviar'|translate}}">
         </div>
         <div class="col s6 center">
           <a class="modal-action modal-close waves-effect btn-large brown lighten-3
-  black-text">Cancelar</a>
+  black-text">{{'Cancelar'|translate}}</a>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmpresaService } from './../../services/empresa.service';
 import { Empresa } from 'src/app/models/Empresa';
 import Swal from 'sweetalert2';
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 declare var $: any;
 
 @Component({
@@ -15,8 +16,15 @@ export class EmpresaComponent implements OnInit {
     empresaNueva: Empresa = new Empresa();
     pageSize = 2;
     p = 1;
+    idioma: any = 2;
 
-    constructor(private empresaService: EmpresaService) {
+    constructor(private empresaService: EmpresaService, private cambioIdiomaService: CambioIdiomaService) {
+        this.idioma = 2;
+        this.cambioIdiomaService.currentMsg$.subscribe(
+            (msg) => {
+                this.idioma = msg;
+                console.log("idioma actual:", this.idioma, " aaaa");
+            });
     }
     ngOnInit(): void {
         this.initDatepicker();
@@ -51,7 +59,7 @@ export class EmpresaComponent implements OnInit {
         $('#modalCrearEmpresa').modal();
         $("#modalCrearEmpresa").modal("open");
     }
-    guardarNuevaEmpresa(){
+    guardarNuevaEmpresa() {
         console.log("GuardandoEmpresa")
         this.empresaService.crearEmpresa(this.empresaNueva).subscribe((res) => {
             $('#modalCrearEmpresa').modal('close');
@@ -65,60 +73,89 @@ export class EmpresaComponent implements OnInit {
             })
         }, err => console.error(err));
     }
-    eliminarEmpresa(id_empresa: any){
-        console.log("Click en eliminar Empresa");
-        console.log("Identificador del Empresa: ",id_empresa);
-        Swal.fire({
-          title: "¿Estás seguro de eliminar esta empresa?",
-          text: "¡No es posible revertir esta acción!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Sí, quiero eliminarlo!"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.empresaService.eliminarEmpresa(id_empresa).subscribe((resEmpresa: any) =>
-            {
-             console.log("resEmpresa: ", resEmpresa);
-             this.empresaService.list().subscribe((resEmpresa: any) =>
-             {
-               this.empresas = resEmpresa;  
-               //console.log(resEmpresa);
-               console.log(this.empresas)
-             },
-             err => console.error(err)
-             );
-            }, 
-            err => console.error(err)
-            );
-    
-    
+    eliminarEmpresa(id_empresa: any) {
+        if (this.idioma == 1) {
             Swal.fire({
-              title: "¡Eliminado!",
-              text: "Tu archivo ha sido eliminado.",
-              icon: "success"
+                title: 
+                "Are you sure you want to delete this company?",
+                text:  "This action cannot be undone!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, I want to delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.empresaService.eliminarEmpresa(id_empresa).subscribe((resEmpresa: any) => {
+                        console.log("resEmpresa: ", resEmpresa);
+                        this.empresaService.list().subscribe((resEmpresa: any) => {
+                            this.empresas = resEmpresa;
+                            //console.log(resEmpresa);
+                            console.log(this.empresas)
+                        },
+                            err => console.error(err)
+                        );
+                    },
+                        err => console.error(err)
+                    );
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
             });
-          }
-        });
-    
+        } else {
+            console.log("Click en eliminar Empresa");
+            console.log("Identificador del Empresa: ", id_empresa);
+            Swal.fire({
+                title: "¿Estás seguro de eliminar esta empresa?",
+                text: "¡No es posible revertir esta acción!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, quiero eliminarlo!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.empresaService.eliminarEmpresa(id_empresa).subscribe((resEmpresa: any) => {
+                        console.log("resEmpresa: ", resEmpresa);
+                        this.empresaService.list().subscribe((resEmpresa: any) => {
+                            this.empresas = resEmpresa;
+                            //console.log(resEmpresa);
+                            console.log(this.empresas)
+                        },
+                            err => console.error(err)
+                        );
+                    },
+                        err => console.error(err)
+                    );
+
+
+                    Swal.fire({
+                        title: "¡Eliminado!",
+                        text: "Tu archivo ha sido eliminado.",
+                        icon: "success"
+                    });
+                }
+            });
+        }
+
     }
 
-    initDatepicker(fecha?: any)
-    {
+    initDatepicker(fecha?: any) {
         let date = "2024-07-26";
         //if(fecha){
-            //date = new Date(fecha += 'T00:00:00');
-            $('#fechaEmpresa').datepicker({
-                format: "yyyy-mm-dd",
-                defaultDate: date,
-            });
+        //date = new Date(fecha += 'T00:00:00');
+        $('#fechaEmpresa').datepicker({
+            format: "yyyy-mm-dd",
+            defaultDate: date,
+        });
         //}
     }
 
-    actualizarFecha(date?: any)
-    {
-        if(date){
+    actualizarFecha(date?: any) {
+        if (date) {
             this.empresa.fecha = date;
         }
     }

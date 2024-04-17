@@ -7,6 +7,8 @@ import { Rol } from 'src/app/models/Rol';
 import { ImagenesService } from 'src/app/services/imagenes.service';
 import { environment } from 'src/environments/environment';
 import { ChangeDetectorRef } from '@angular/core';
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
+
 declare var $: any;
 
 @Component({
@@ -26,11 +28,18 @@ export class UsuarioComponent implements OnInit {
   fileToUpload: any;
   imagenActualizada = false;
   imagenUrls: { [id: number]: string } = {};
+  idioma: any = 2;
 
-  constructor(private imagenesService: ImagenesService, private usuarioService: UsuarioService, private rolesService: RolesService, private cdr: ChangeDetectorRef) {
+  constructor(private imagenesService: ImagenesService, private usuarioService: UsuarioService, private rolesService: RolesService,  private cambioIdiomaService: CambioIdiomaService) {
     this.imgUsuario = null;
     this.fileToUpload = null;
     this.liga = environment.API_URI_IMAGES;
+    this.idioma = 2;
+        this.cambioIdiomaService.currentMsg$.subscribe(
+            (msg) => {
+                this.idioma = msg;
+                console.log("idioma actual:", this.idioma, " aaaa");
+            });
   }
 
   ngOnInit(): void {
@@ -65,11 +74,20 @@ export class UsuarioComponent implements OnInit {
       this.usuarioService.list().subscribe((resUsuarios: any) => {
         this.usuarios = resUsuarios;
       }, err => console.error(err));
+      if(this.idioma == 1){
+        console.log("Eh wey, estás ahí?")
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          text: "User Update"
+        })
+      }else{ 
       Swal.fire({
         position: 'center',
         icon: 'success',
-        text: 'Plan Actualizado'
+        text: 'Usuario Actualizado'
       })
+    }
     }, err => console.error(err));
   }
 
@@ -102,11 +120,20 @@ export class UsuarioComponent implements OnInit {
       this.usuarioService.list().subscribe((resUsuarios: any) => {
         this.usuarios = resUsuarios;
       }, err => console.error(err));
+      if(this.idioma == 1){
+        console.log("Eh wey, estás ahí?")
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          text: "User Update"
+        })
+      }else{ 
       Swal.fire({
         position: 'center',
         icon: 'success',
-        text: 'Plan Actualizado'
+        text: 'Usuario Actualizado'
       })
+    }
     }, err => console.error(err));
   }
 
@@ -173,7 +200,6 @@ export class UsuarioComponent implements OnInit {
       this.imagenesService.guardarImagen(this.usuario.id, "usuarios", blob).subscribe(
         (res: any) => {
           this.imgUsuario = blob;
-          this.cdr.detectChanges(); // Aquí se llama a detectChanges
           console.log("Usuario id: ", this.usuario.id);
 
           // Actualizar la URL de la imagen solo para el usuario actual

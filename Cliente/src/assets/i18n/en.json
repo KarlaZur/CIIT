@@ -39,6 +39,20 @@
     "¡Este rol depende de alguna otra tabla!, ¡CUIDADO!": "This role depends on some other board, BEWARE!",
     "¿Estás seguro de eliminar este usuario?": "Are you sure to eliminate this user?",
     "Actualizado":"Updated",
-    "Tu imagen se ha actualizado": "Your image has been updated"
+    "Tu imagen se ha actualizado": "Your image has been updated",
+    "Actualizar empresa" : "Update company",
+    "Dirección" : "Address", 
+    "Fecha" : "Date",
+    "Telefono" : "Phone number",
+    "Enviar": "Send",
+    "Cancelar": "Cancel",
+    "Nombre": "Name",
+    "Crear empresa": "Create company",
+    "Imagen" : "Image",
+    "Anterior" : " Preview",
+    "Siguiente" : "Next",
+    "Actualizar usuario": "Update user",
+    "Crear usuario" : "Create user",
+    "Contraseña" : "password"
 }
     
