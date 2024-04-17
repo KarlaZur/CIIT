@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-04-2024 a las 22:51:15
+-- Tiempo de generación: 17-04-2024 a las 12:24:17
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `contrasena` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `fotito` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -157,7 +157,8 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `id_Rol`, `contrasena`, `fotit
 (19, 'Monserrat', 'Monserrat@gmail.com', 1, '$2a$10$c14Y15UlXmjrdSpB9oRD4ew.iem36EZEBYHsGUJa25oTzGNqT2BDi', 0),
 (20, 'Cecilia', 'Cecilia@gmail.com', 0, '$2a$10$qMedl5nkRmsCbaraZBp4oOSqBkl5mbpOyun4f/Ou68a0hM17ZgdfS', 0),
 (21, 'Fernanda', 'Fernanda@gmail.com', 0, '$2a$10$pu4SyN2Js4oYfbpJxO/Wt.7tNkpxnIhBv2f15h08f4qhthGIu3NjW', 0),
-(22, 'pruebas', 'pruebas602a@gmail.com', 1, '$2a$10$Rd2/J1obKW54G4VYDO4pBe1J6iDd8pRyZOxdnDfUSGXeU7koYJH6m', 0);
+(22, 'pruebas', 'pruebas602a@gmail.com', 1, '$2a$10$Rd2/J1obKW54G4VYDO4pBe1J6iDd8pRyZOxdnDfUSGXeU7koYJH6m', 0),
+(23, 'Arce', 'arce@gmail.com', 1, '$2a$10$9rdY/ei/sm3FT.Ru3mDTfeg/RcqxWIisBdy6QG2fsgBKbIS5qh2ES', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

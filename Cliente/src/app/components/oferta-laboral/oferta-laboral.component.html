@@ -8,10 +8,10 @@
     itemsPerPage: pageSize,
     currentPage: p
     };let i=index">
-    <td *ngIf="idioma==2">{{oferta.puesto}}</td>
+    <td *ngIf="idioma==2">{{oferta.position}}</td>
     <td *ngIf="idioma==1">{{oferta.puesto}}</td>
     <td>{{oferta.salario}}</td>
-    <td *ngIf="idioma==2">{{oferta.descripcion}}</td>
+    <td *ngIf="idioma==2">{{oferta.description}}</td>
     <td *ngIf="idioma==1">{{oferta.descripcion}}</td>
     <td>{{oferta.horario}}</td>
 
@@ -23,14 +23,14 @@
   </table>
   <div class="row center-align">
     <pagination-controls class="my-pagination" (pageChange)="p = ($event)"
-    previousLabel="Anterior" nextLabel="Siguiente">
+    previousLabel="{{'Anterior'|translate}}" nextLabel="{{'Siguiente'|translate}}">
     </pagination-controls>
     </div>
 </div>
 
 <div id="modalModificarOferta" class="modal">
   <div class="modal-content">
-    <h2>Actualización de oferta</h2>
+    <h2>{{"Actualización de oferta"|translate}}</h2>
     <form>
       <div class="row s8">
         <i class="material-icons prefix">domain</i>
