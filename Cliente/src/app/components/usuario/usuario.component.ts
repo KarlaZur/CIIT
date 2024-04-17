@@ -121,7 +121,6 @@ export class UsuarioComponent implements OnInit {
         this.usuarios = resUsuarios;
       }, err => console.error(err));
       if(this.idioma == 1){
-        console.log("Eh wey, estás ahí?")
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -140,14 +139,15 @@ export class UsuarioComponent implements OnInit {
   eliminarUsuario(id: any) {
     console.log("Click en eliminar usuario");
     console.log("Identificador del usuario: ", id);
-    Swal.fire({
-      title: "¿Estás seguro de eliminar este usuario?",
-      text: "¡No es posible revertir esta acción!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, quiero eliminarlo!"
+    if(this.idioma ==1){
+      Swal.fire({
+        title: "Are you sure to eliminate this user?",
+        text: "It is not possible to reverse this action!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, I want to eliminate it!"
     }).then((result) => {
       if (result.isConfirmed) {
         this.usuarioService.eliminarUsuario(id).subscribe((resusuario: any) => {
@@ -165,12 +165,47 @@ export class UsuarioComponent implements OnInit {
 
 
         Swal.fire({
-          title: "Eliminado!",
-          text: "Tu archivo ha sido eliminado.",
+          title: "Deleted!",
+          text:  "Your file has been deleted",
           icon: "success"
         });
       }
     });
+    }else{
+      Swal.fire({
+        title: "¿Estás seguro de eliminar este usuario?",
+        text: "¡No es posible revertir esta acción!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, quiero eliminarlo!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.usuarioService.eliminarUsuario(id).subscribe((resusuario: any) => {
+            console.log("resusuario: ", resusuario);
+            this.usuarioService.list().subscribe((resusuario: any) => {
+              this.usuarios = resusuario;
+              //console.log(resusuario);
+              console.log(this.usuarios)
+            },
+              err => console.error(err)
+            );
+          },
+            err => console.error(err)
+          );
+  
+  
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Tu archivo ha sido eliminado.",
+            icon: "success"
+          });
+        }
+      });
+
+    }
+
 
   }
 
@@ -222,12 +257,19 @@ export class UsuarioComponent implements OnInit {
       );
     });
 
+    if(this.idioma==1){
+      Swal.fire({
+        title: "Updated",
+        text: "Your image has been updated",
+        icon: "success"
+      });}else{
+        Swal.fire({
+          title: "Actualizado",
+          text: "Tu imagen se ha actualizado",
+          icon: "success"
+        });
 
-    Swal.fire({
-      title: "Actualizado",
-      text: "Tu imagen se ha actualizado",
-      icon: "success"
-    });
+    }
   }
 
 
