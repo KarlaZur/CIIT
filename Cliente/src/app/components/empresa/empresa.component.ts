@@ -46,19 +46,49 @@ export class EmpresaComponent implements OnInit {
             this.empresaService.list().subscribe((resEmpresas: any) => {
                 this.empresas = resEmpresas;
             }, err => console.error(err));
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                text: 'Plan Actualizado'
-            })
-        }, err => console.error(err));
+            if (this.idioma == 1) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    text: 'Empresa Actualizada'
+                })
+            }
+            else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    text: 'Updated company'
+                })
+            }
+        },
+            error => {
+                if (this.idioma == 1) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un problema al actualizar la empresa',
+                        icon: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+                else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'There was a problem updating the company',
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            });
     }
+
     crearEmpresa() {
         this.empresaNueva = new Empresa();
         console.log("empresa nueva")
         $('#modalCrearEmpresa').modal();
         $("#modalCrearEmpresa").modal("open");
     }
+
+
     guardarNuevaEmpresa() {
         console.log("GuardandoEmpresa")
         this.empresaService.crearEmpresa(this.empresaNueva).subscribe((res) => {
@@ -66,19 +96,45 @@ export class EmpresaComponent implements OnInit {
             this.empresaService.list().subscribe((resEmpresas: any) => {
                 this.empresas = resEmpresas;
             }, err => console.error(err));
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                text: 'Plan Actualizado'
-            })
-        }, err => console.error(err));
+            if (this.idioma == 1) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    text: 'Empresa creada'
+                })
+            }
+            else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    text: 'Created company'
+                })
+            }
+
+        }, error => {
+            if (this.idioma == 1) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema al crear la empresa',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+            else {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'There was a problem creating the company',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
     }
     eliminarEmpresa(id_empresa: any) {
-        if (this.idioma == 1) {
+        if (this.idioma == 2) {
             Swal.fire({
-                title: 
-                "Are you sure you want to delete this company?",
-                text:  "This action cannot be undone!",
+                title:"Are you sure you want to delete this company?",
+                text: "This action cannot be undone!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -95,9 +151,16 @@ export class EmpresaComponent implements OnInit {
                         },
                             err => console.error(err)
                         );
-                    },
-                        err => console.error(err)
-                    );
+                    },  err => {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'There was a problem deleting the company',
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        });
+                    });
+
+
                     Swal.fire({
                         title: "Deleted!",
                         text: "Your file has been deleted.",
@@ -128,8 +191,14 @@ export class EmpresaComponent implements OnInit {
                             err => console.error(err)
                         );
                     },
-                        err => console.error(err)
-                    );
+                        err => {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Hubo un problema al elimnar la empresa',
+                                icon: 'error',
+                                confirmButtonText: 'Aceptar'
+                            });
+                        });
 
 
                     Swal.fire({
