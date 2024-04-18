@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from './../../services/usuario.service';
 import { Usuario } from 'src/app/models/Usuario';
@@ -120,7 +121,7 @@ export class UsuarioComponent implements OnInit {
       this.usuarioService.list().subscribe((resUsuarios: any) => {
         this.usuarios = resUsuarios;
       }, err => console.error(err));
-      if(this.idioma == 1){
+      if(this.idioma == 2){
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -139,7 +140,7 @@ export class UsuarioComponent implements OnInit {
   eliminarUsuario(id: any) {
     console.log("Click en eliminar usuario");
     console.log("Identificador del usuario: ", id);
-    if(this.idioma ==1){
+    if(this.idioma ==2){
       Swal.fire({
         title: "Are you sure to eliminate this user?",
         text: "It is not possible to reverse this action!",
