@@ -237,7 +237,7 @@ export class UsuarioComponent implements OnInit {
         (res: any) => {
           this.imgUsuario = blob;
           console.log("Usuario id: ", this.usuario.id);
-
+          
           // Actualizar la URL de la imagen solo para el usuario actual
 
           this.imagenActualizada = true; // Aquí se marca la imagen como actualizada
@@ -262,12 +262,13 @@ export class UsuarioComponent implements OnInit {
       Swal.fire({
         title: "Updated",
         text: "Your image has been updated",
-        icon: "success"
+        icon: "success",didClose:()=>{window.location.reload();}
+
       });}else{
         Swal.fire({
           title: "Actualizado",
           text: "Tu imagen se ha actualizado",
-          icon: "success"
+          icon: "success",didClose:()=>{window.location.reload();}
         });
 
     }

@@ -10,6 +10,8 @@
     itemsPerPage: pageSize,
     currentPage: p
     };let i=index">
+    <td *ngIf="empresa.fotito == 1"><img width="64" src="{{liga}}/empresas/{{empresa.id_empresa}}.jpg" alt="{{liga}}/empresas/1.jpg"></td>
+    <td *ngIf="empresa.fotito == 0"><img width="64" src="{{liga}}/empresas/00.jpg" alt="{{liga}}/empresas/1.jpg"></td>
     <td>{{empresa.nombre_empresa}}</td>
     <td>{{empresa.direccion}}</td>
     <td>{{empresa.descripcion}}</td>

@@ -4,7 +4,7 @@ import { Empresa } from 'src/app/models/Empresa';
 import Swal from 'sweetalert2';
 import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 declare var $: any;
-
+import { ImagenesService } from 'src/app/services/imagenes.service';
 @Component({
     selector: 'app-empresa',
     templateUrl: './empresa.component.html',
@@ -17,8 +17,13 @@ export class EmpresaComponent implements OnInit {
     pageSize = 2;
     p = 1;
     idioma: any = 2;
+    liga = '';
+    imgUsuario: any;
+    fileToUpload: any;
+    imagenActualizada = false;
+    imagenUrls: { [id: number]: string } = {};
 
-    constructor(private empresaService: EmpresaService, private cambioIdiomaService: CambioIdiomaService) {
+    constructor(private imagenesService: ImagenesService,private empresaService: EmpresaService, private cambioIdiomaService: CambioIdiomaService) {
         this.idioma = 2;
         this.cambioIdiomaService.currentMsg$.subscribe(
             (msg) => {
@@ -228,4 +233,69 @@ export class EmpresaComponent implements OnInit {
             this.empresa.fecha = date;
         }
     }
+
+    getFileBlob(file: any) {
+        var reader = new FileReader();
+        return new Promise(function (resolve, reject) { //Espera a que se cargue la img
+          reader.onload = (function (thefile) {
+            return function (e) {
+              // console.log(e.target?.result)
+              resolve(e.target?.result);
+            };
+    
+          })(file);
+          reader.readAsDataURL(file);
+        });
+    
+      }
+
+      guardandoImagen() {
+        // this.imgUsuario = null;
+        //this.fileToUpload = null;
+        let imgPromise = this.getFileBlob(this.fileToUpload);
+        imgPromise.then(blob => {
+          console.log(this.empresa.id_empresa);
+          //this.usuario.fotito = 2; 
+    
+          
+          this.imagenesService.guardarImagen(this.empresa.id_empresa, "empresas", blob).subscribe(
+            (res: any) => {
+              this.imgUsuario = blob;
+              console.log("empresa id: ", this.empresa.id_empresa);
+              
+              // Actualizar la URL de la imagen solo para el usuario actual
+    
+              this.imagenActualizada = true; // Aquí se marca la imagen como actualizada
+              this.empresaService.actualizarFotito(this.empresa.id_empresa).subscribe((resempresa: any) => {
+                console.log("fotito: ", resempresa);
+                this.empresa.fotito = 2;
+                if (this.empresa.fotito === 2) {
+                  console.log(this.liga);
+                  
+                  //this.liga= environment.API_URI_IMAGES + '/usuarios/' + this.usuario.id + '.jpg?t=';
+                  //console.log("liga de los amigos: ",this.liga);
+                  
+                }
+              }, err => console.error(err));
+    
+            },
+            err => console.error(err)
+          );
+        });
+    
+        if(this.idioma==1){
+          Swal.fire({
+            title: "Updated",
+            text: "Your image has been updated",
+            icon: "success",didClose:()=>{window.location.reload();}
+    
+          });}else{
+            Swal.fire({
+              title: "Actualizado",
+              text: "Tu imagen se ha actualizado",
+              icon: "success",didClose:()=>{window.location.reload();}
+            });
+    
+        }
+      }
 }
