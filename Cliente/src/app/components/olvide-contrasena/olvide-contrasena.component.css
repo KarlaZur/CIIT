@@ -1,0 +1,70 @@
+.login-page {
+    width: 500px;
+    padding: 8% 0 0;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 4500px;
+    margin: 0 auto;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    border: 0;
+    width: 100%;
+    border-radius: 10px;
+    margin: 0 0 15px;
+    padding: 15px;
+    font-size: 14px;
+}
+
+.Titulo{
+    padding-bottom: 20px;
+    font-family: "Roboto", sans-serif;
+}
+
+.boton{
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #13322b;
+    width: 100%;
+    border: 0;
+    border-radius: 10px;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3 ease;
+}
+
+.volver{
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    margin-top: 20px;
+    width: 100%;
+    background: #FFFFFF;
+    border: 0;
+    border-radius: 10px;
+    padding: 15px;
+    color: #000000;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.boton:hover{
+    background: #285c4d;
+}
+
+.volver:hover{
+    background: #EAEAEA;
+}

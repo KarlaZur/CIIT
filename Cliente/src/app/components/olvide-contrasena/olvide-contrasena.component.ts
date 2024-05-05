@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { CorreoService } from 'src/app/services/correo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-olvide-contrasena',
@@ -11,11 +12,15 @@ export class OlvideContrasenaComponent implements OnInit {
 
   correo : string = "";
 
-  constructor(private correosService: CorreoService) {
+  constructor(private router: Router,private correosService: CorreoService) {
     this.correo = "";
    }
 
   ngOnInit(): void {
+  }
+
+  volverInicio(){
+    this.router.navigateByUrl('/login');
   }
 
   enviarCorreo() {
