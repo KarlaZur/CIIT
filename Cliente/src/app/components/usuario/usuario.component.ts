@@ -137,6 +137,7 @@ export class UsuarioComponent implements OnInit {
 
   guardarActualizarUsuario() {
 
+    if (this.usuario.nombre != "" && this.usuario.correo != "" ) {
     this.usuarioService.actualizarUsuario(this.usuario).subscribe((res) => {
       $('#modalModificarUsuario').modal('close');
       this.usuarioService.list().subscribe((resUsuarios: any) => {
@@ -156,6 +157,22 @@ export class UsuarioComponent implements OnInit {
         })
       }
     }, err => console.error(err));
+    }
+    else {
+      if (this.idioma == '1') {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            text: 'Por favor rellene todos los campos'
+        });
+    } else {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            text: 'Please fill all inputs'
+        });
+    }
+    }
   }
 
   eliminarUsuario(id: any) {

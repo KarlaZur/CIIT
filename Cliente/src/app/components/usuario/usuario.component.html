@@ -77,8 +77,8 @@
           <input id="nombre_usuario" [(ngModel)]="usuario.nombre" type="text" class="validate">
         </div>
         <div class="input-field col s12">
-          <label class="active">{{'Correo'|translate}}</label>
-          <input [(ngModel)]="usuario.correo" type="text" class="validate">
+          <label class="active" for = "correo_usuario">{{'Correo'|translate}}</label>
+          <input id = "correo_usuario" [(ngModel)]="usuario.correo" type="text" class="validate">
         </div>
         <div class="row col s12">
           <label class="active">{{'Rol'|translate}}</label>
