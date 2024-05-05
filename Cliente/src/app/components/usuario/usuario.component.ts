@@ -30,7 +30,7 @@ export class UsuarioComponent implements OnInit {
   fileToUpload: any;
   imagenActualizada = false;
   imagenUrls: { [id: number]: string } = {};
-  idioma: any = 2;
+  idioma: any = 1;
 
   constructor(private imagenesService: ImagenesService, private usuarioService: UsuarioService, private rolesService: RolesService, private cambioIdiomaService: CambioIdiomaService) {
     this.imgUsuario = null;
