@@ -142,8 +142,7 @@ export class EmpresaComponent implements OnInit {
         }, err => console.error(err));
     }
     guardarActualizarEmpresa() {
-        console.log("Guardar empresa");
-
+        console.log("Guardar empresa"); 
         if (!this.empresa.descripcion || !this.empresa.description || !this.empresa.direccion || !this.empresa.nombre_empresa || !this.empresa.rfc || !this.empresa.telefono || !this.empresa.fecha) {
             if (this.idioma == '1') {
                 Swal.fire({
@@ -225,11 +224,19 @@ export class EmpresaComponent implements OnInit {
                 });
             }
         } else {
-            console.log("Formulario valido");
+            //console.log("Formulario valido");
             this.empresaService.crearEmpresa(this.empresaNueva).subscribe((res) => {
                 $('#modalCrearEmpresa').modal('close');
                 this.empresaService.list().subscribe((resEmpresas: any) => {
                     this.empresas = resEmpresas;
+                    if(this.fileToUpload != null){
+                        let a = this.empresas.length;
+                        a=a-1;
+                        let prueba = this.empresas[a];
+                        this.empresa = prueba;
+                        this.guardandoImagen();
+                    }
+
                 }, err => console.error(err));
                 if (this.idioma == '1') {
                     Swal.fire({

@@ -174,10 +174,14 @@
         <label class="active">Description</label>
         <input [(ngModel)]="empresaNueva.description" type="text" class="validate">
       </div>
+      <div class="input-field col s12">
+        <label class="active">Imagen</label>
+        <input type="file" (change)="cargandoImagen($event.target)" multiple>
+      </div>
       <div class="row">
         <div class="col s6 center">
           <button type="submit" class="waves-effect btn-large brown lighten-3 modal-close black-text"
-            [disabled]="!validateNewRFC() || !validateNewTelefono()" (click)="guardarActualizarEmpresa()">
+            [disabled]="!validateNewRFC() || !validateNewTelefono()" (click)="guardarNuevaEmpresa()">
             {{ 'Enviar' | translate }}
           </button>
         </div>
