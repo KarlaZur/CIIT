@@ -46,6 +46,9 @@ export class UsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    $(document).ready(function () {
+      $('.modal').modal();
+    });
     this.usuarioService.list().subscribe((resUsuarios: any) => {
       this.usuarios = resUsuarios;
       this.rolesService.list().subscribe((resRoles: any) => {
@@ -63,8 +66,6 @@ export class UsuarioComponent implements OnInit {
 
   crearUsuario() {
     this.usuarioNuevo = new Usuario();
-    console.log("Usuario Nuevo")
-    $('#modalCrearUsuario').modal();
     $("#modalCrearUsuario").modal('open');
   }
 
