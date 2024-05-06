@@ -9,8 +9,8 @@
     height: 1080px;
   }
   .carousel .carousel-item {
-    width: 1920px;
-    height: 1080px;
+    width: 640px;
+    height: 480px;
   }
 
   .carousel .carousel-item img {
