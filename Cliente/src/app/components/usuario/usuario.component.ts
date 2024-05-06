@@ -79,18 +79,18 @@ export class UsuarioComponent implements OnInit {
         this.usuarioService.list().subscribe((resUsuarios: any) => {
           this.usuarios = resUsuarios;
         }, err => console.error(err));
-        if (this.idioma == 1) {
+        if (this.idioma == 2) {
           console.log("Eh wey, estás ahí?")
           Swal.fire({
             position: 'center',
             icon: 'success',
-            text: "User Update"
+            text: "User Created"
           })
         } else {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            text: 'Usuario Actualizado'
+            text: 'Usuario Creado'
           })
         }
       }, err => console.error(err));
@@ -145,7 +145,7 @@ export class UsuarioComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          text: "User Update"
+          text: "Updated User"
         })
       } else {
         Swal.fire({
@@ -162,13 +162,13 @@ export class UsuarioComponent implements OnInit {
     console.log("Identificador del usuario: ", id);
     if (this.idioma == 2) {
       Swal.fire({
-        title: "Are you sure to eliminate this user?",
+        title: "Are you sure to delete this user?",
         text: "It is not possible to reverse this action!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, I want to eliminate it!"
+        confirmButtonText: "Yes, I want to delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
           this.usuarioService.eliminarUsuario(id).subscribe((resusuario: any) => {
