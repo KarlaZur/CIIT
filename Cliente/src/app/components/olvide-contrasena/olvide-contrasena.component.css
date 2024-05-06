@@ -7,7 +7,7 @@
 .form {
     position: relative;
     z-index: 1;
-    background: #FFFFFF;
+    background: #D4C19C;
     max-width: 4500px;
     margin: 0 auto;
     padding: 45px;
@@ -36,7 +36,7 @@
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
-    background: #13322b;
+    background: #7E3B3B;
     width: 100%;
     border: 0;
     border-radius: 10px;
@@ -52,7 +52,7 @@
     text-transform: uppercase;
     margin-top: 20px;
     width: 100%;
-    background: #FFFFFF;
+    background: #D4C19C;
     border: 0;
     border-radius: 10px;
     padding: 15px;
@@ -62,9 +62,10 @@
 }
 
 .boton:hover{
-    background: #285c4d;
+    background: #4e232e;
 }
 
 .volver:hover{
-    background: #EAEAEA;
+    background: #7E3B3B;
+    color: black;
 }
