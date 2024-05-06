@@ -38,17 +38,32 @@
 
 <div class="login-page">
     <div class="form">
+        <ul id="dropdown3" class="dropdown-content idioma-nav">
+            <li (click)="setIdioma(1)"><a>
+                <img class="imagen_icono" src="../../../assets/img/bandera.png" alt="ingles">
+            </a></li>
+            <li (click)="setIdioma(2)">
+                <a>
+                    <img class="imagen_icono" src="../../../assets/img/mexico.png" alt="español">
+                </a>
+            </li>
+        </ul>
+        <li style="float: right; display: block;">
+            <a class="dropdown-trigger" data-target="dropdown3">
+                <i class="material-icons">flag</i>
+            </a>
+        </li>
         <form class="login-form">
-            <h4 class="Titulo">Nueva Contraseña</h4>
+            <h4 class="Titulo">{{"Nueva Contraseña" | translate}}</h4>
             <div class="row">
             <i for="password" class="material-icons prefix">vpn_key</i>
             <input class="browser-default" type="password" name="password" id="password" [(ngModel)]="nuevaContrasena"
-                placeholder="Contraseña Anterior" autocomplete="off">
+                placeholder="{{'Contraseña Anterior' | translate}}" autocomplete="off">
             </div>
             <i class="material-icons prefix">vpn_key</i>
             <input class="browser-default" type="password" name="password" id="password"
-                [(ngModel)]="nuevaContrasenaConfirmacion" placeholder="Nueva Contraseña" autocomplete="off">
-            <button (click)="actualizarContrasena()" class="boton ">CONFIRMAR</button>
+                [(ngModel)]="nuevaContrasenaConfirmacion" placeholder="{{'Nueva Contraseña' | translate}}" autocomplete="off">
+            <button (click)="actualizarContrasena()" class="boton ">{{"CONFIRMAR" | translate}}</button>
         </form>
     </div>
 </div>
