@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-reestablecer-contrasena',
@@ -13,7 +13,7 @@ export class ReestablecerContrasenaComponent implements OnInit {
   nuevaContrasena : string = "";
   nuevaContrasenaConfirmacion : string = "";
 
-  constructor(private usuarioService: UsuarioService, private route: ActivatedRoute) {
+  constructor(private usuarioService: UsuarioService, private route: ActivatedRoute, private router: Router) {
     this.nuevaContrasena = "";
     this.nuevaContrasenaConfirmacion = "";
    }
@@ -56,6 +56,7 @@ export class ReestablecerContrasenaComponent implements OnInit {
             icon: 'success',
             confirmButtonText: 'Aceptar'
           })
+            this.router.navigateByUrl('/login');
         }, err => console.error(err));
       }
 
