@@ -1,6 +1,6 @@
 nav {
     background-color: #13322B;
-    height: 100px;
+    height: 120px;
     line-height: 120px;
 }
 
@@ -9,7 +9,7 @@ nav {
 }
 
 .brand-logo {
-    height: 90px;
+    height: 95px;
     color: #fff;
     font-size: 24px;
     font-weight: bold;
@@ -17,6 +17,9 @@ nav {
     display: inline-block;
     margin-top: 10px;
     /* Ajusta según sea necesario */
+}
+.brand-logo:hover {
+    background-color: rgba(30, 71, 62, 0.5); 
 }
 
 .brand-logo img {
@@ -40,14 +43,14 @@ ul.right li {
 }
 
 ul.right li a {
-    color: #D4C19C;
+    color: #fff;
     text-decoration: none;
     transition: color 0.3s ease;
     /* Transición suave para el color del texto */
 }
 
 ul.right li a:hover {
-    color: #ffd700;
+    color: #D4C19C;
     background-color: transparent;
     font-size: 19px;
     transition: 400ms;
@@ -61,7 +64,7 @@ font-family: 'Raleway-Medium', sans-serif;
 .dropdown-content li>span,
 .dropdown-content.idioma-nav li>a,
 .dropdown-content li>span {
-color: #051c49;
+color: #13322B;
 font-size: 14px;
 }
 .dropdown-content.idioma-nav {
@@ -69,12 +72,12 @@ top: 80px !important;
 }
 .dropdown-content li:hover,
 .dropdown-content li.active {
-background-color: #051c49;
-color: #fff;
+background-color: #13322B;
+color: #D4C19C;
 }
 .dropdown-content li:hover a,
 .dropdown-content li.active a {
-color: #fff !important;
+color: #D4C19C!important;
 }
 .dropdown-content {
 width: 150px !important;
@@ -93,6 +96,6 @@ color: #ffa400;
 .select-dropdown li.disabled,
 .select-dropdown li.disabled>span,
 .select-dropdown li.optgroup {
-background: #051c49;
-color: #fff;
+background: #13322B;
+color: #D4C19C;
 }
