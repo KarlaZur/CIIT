@@ -1,5 +1,5 @@
 nav {
-    background-color: #000;
+    background-color: #13322B;
     height: 100px;
     line-height: 120px;
 }
@@ -40,7 +40,7 @@ ul.right li {
 }
 
 ul.right li a {
-    color: #fff;
+    color: #D4C19C;
     text-decoration: none;
     transition: color 0.3s ease;
     /* Transición suave para el color del texto */
