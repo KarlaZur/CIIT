@@ -7,7 +7,7 @@
   <br><br>
 
   <table class="default" *ngIf="roles != undefined">
-    <tr class="cabeceraTabla" >{{"Nombre del rol" | translate}}</tr>
+    <tr  > <td colspan="3" class="cabeceraTabla">{{"Nombre del rol" | translate}}</td></tr>
     <tr *ngFor="let rol of roles |
     paginate: {
     itemsPerPage: pageSize,
