@@ -1,7 +1,10 @@
 nav {
     background-color: #13322B;
-    height: 120px;
-    line-height: 120px;
+    height: 105px;
+    line-height: 105px;
+    position: fixed; 
+    width: 100%; 
+    z-index: 1000;
 }
 
 .nav-wrapper {
@@ -9,13 +12,13 @@ nav {
 }
 
 .brand-logo {
-    height: 95px;
+    height: 90px;
     color: #fff;
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 15px;
     /* Ajusta según sea necesario */
 }
 .brand-logo:hover {
